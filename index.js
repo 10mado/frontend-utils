@@ -111,7 +111,7 @@ fe.server_py = function(gulp, opt){
 // deploy to GAE
 
 fe.all = function(gulp, opt){
-  for(key in fe){
+  for(var key in fe){
     if(key !== 'all'){
       var taskOpt = opt[key] || {};
       fe[key](gulp,taskOpt);
