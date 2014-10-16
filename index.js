@@ -46,7 +46,7 @@ fe.icons = function(gulp,opt){
   var shell = require('gulp-shell');
   gulp.task('icons', shell.task([
     'fontcustom compile'
-  ]);
+  ]));
 };
 
 // wig ==========================
@@ -98,7 +98,7 @@ fe.server_php = function(gulp, opt){
   };
   opt = _.merge(def,opt);
   var cmd = 'php -S localhost:' + opt.port + ' -t ' + opt.root;
-  gulp.task('server_php', shell.task([ cmd ]);
+  gulp.task('server_php', shell.task([ cmd ]));
 };
 
 // test server(Python)
