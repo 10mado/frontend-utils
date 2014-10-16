@@ -56,7 +56,7 @@ fe.wig = function(gulp,opt){
     outDir: 'public',
     verbose: true
   };
-  opt = _merge(def,opt);
+  opt = _.merge(def,opt);
   var builder = new Wig(opt);
   gulp.task('wig', function(){
     try{
@@ -111,6 +111,9 @@ fe.server_py = function(gulp, opt){
 // deploy to GAE
 
 fe.all = function(gulp, opt){
+  if(opt === undefined){
+    opt = {};
+  }
   for(var key in fe){
     if(key !== 'all'){
       var taskOpt = opt[key] || {};
