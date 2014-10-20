@@ -3,7 +3,7 @@
 ## install 
 
 ```
-npm install git+ssh://git@github.com/10mado/frontend-utils.git#master --save
+npm install git+ssh://git@github.com/10mado/frontend-utils.git#master --save-dev
 ```
 
 ## initialize gulp task
