@@ -11,7 +11,7 @@ npm install git+ssh://git@github.com/10mado/frontend-utils.git#master --save-dev
 in `gulpfile.js`:
 
 ```
-var gulpTasks = require('./').gulp(__dirname);
+var gulpTasks = require('frontend-utils').gulp(__dirname);
 var gulp = require('gulp');
 gulpTasks.all(gulp);
 ```
@@ -19,7 +19,7 @@ gulpTasks.all(gulp);
 or
 
 ```
-var gulpTasks = require('./').gulp(__dirname);
+var gulpTasks = require('frontend-utils').gulp(__dirname);
 var gulp = require('gulp');
 gulpTasks.sass(gulp,{compass:true});
 // 'sass' and 'watch-sass' task automatically created with 10mado standard options.
