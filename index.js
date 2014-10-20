@@ -19,7 +19,7 @@ fe.sass = function(gulp,opt){
     style: 'compact',
     compass: false,
     loadPath:[
-      __dirname + '/node_modules/bootstrap-sass/vendor/assets/stylesheets',
+      __dirname + '/node_modules/bootstrap-sass/assets/stylesheets',
       __dirname + '/bower_components/csswizardry-grids'
     ],
     prefixer:['last 2 versions', '> 4%']
@@ -27,12 +27,13 @@ fe.sass = function(gulp,opt){
   opt = _.merge(def,opt);
 
   gulp.task('sass', function(){
-    var g = gulp.src(paths.sass)
+    var g = gulp.src(opt.src)
       .pipe(plumber())
       .pipe(sass({
         style: opt.style,
         bundleExec: opt.bundleExec,
-        compass: opt.compass
+        compass: opt.compass,
+        loadPath: opt.loadPath
       }));
     if(opt.prefixer){
       g = g.pipe(prefix(opt.prefixer));
