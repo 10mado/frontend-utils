@@ -1,6 +1,8 @@
 "use strict";
 
-exports = module.exports = function(rootPath){
+var frontendUtils = exports;
+
+frontendUtils.gulp = function(rootPath){
 
 var fe = {};
 
