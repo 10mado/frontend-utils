@@ -18,6 +18,10 @@
     "gulp": "^3.8.8",
     "gulp-connect": "^2.0.6",
     "lodash": "^2.4.1",
-    "wig": "0.0.1-beta"
+    "wig": "0.0.1-beta",
+    "gulp-ruby-sass": "^0.7.1",
+    "gulp-plumber": "^0.6.6",
+    "gulp-autoprefixer": "^1.0.1",
+    "bootstrap-sass": "^3.2.0"
   }
 }

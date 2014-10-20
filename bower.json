@@ -1,0 +1,16 @@
+{
+  "name": "frontend",
+  "main": "index.js",
+  "version": "0.0.0",
+  "authors": [
+    "zk33 <ymzktkak@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

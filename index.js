@@ -1,13 +1,47 @@
 "use strict";
 
-var fe = exports;
+exports = module.exports = function(rootPath){
+
+var fe = {};
 
 var _ = require('lodash');
 var used = [];
 
 // compile sass (+ autoprefixer) =======
 fe.sass = function(gulp,opt){
+  var sass = require('gulp-ruby-sass');
+  var prefix = require('gulp-autoprefixer');
+  var plumber = require('gulp-plumber');
+  var def = {
+    src:[rootPath+'/assets/sass/**/*.scss', rootPath+'/assets/sass/**/*.sass'],
+    dest:rootPath+'/public/css',
+    bundleExec: false,
+    style: 'compact',
+    compass: false,
+    loadPath:[
+      __dirname + '/node_modules/bootstrap-sass/vendor/assets/stylesheets',
+      __dirname + '/bower_components/csswizardry-grids'
+    ],
+    prefixer:['last 2 versions', '> 4%']
+  }
+  opt = _.merge(def,opt);
+
   gulp.task('sass', function(){
+    var g = gulp.src(paths.sass)
+      .pipe(plumber())
+      .pipe(sass({
+        style: opt.style,
+        bundleExec: opt.bundleExec,
+        compass: opt.compass
+      }));
+    if(opt.prefixer){
+      g = g.pipe(prefix(opt.prefixer));
+    }
+      g = g.pipe(plumber.stop())
+        .pipe(gulp.dest(opt.dest))
+  });
+  gulp.task('watch-sass',function(){
+    gulp.watch(opt.src, ['sass']);
   });
 };
 
@@ -53,6 +87,7 @@ fe.icons = function(gulp,opt){
 fe.wig = function(gulp,opt){
   var Wig = require('wig');
   var def = {
+    rootDir: rootPath,
     outDir: 'public',
     verbose: true
   };
@@ -121,3 +156,7 @@ fe.all = function(gulp, opt){
     }
   }
 };
+
+return fe;
+
+}
