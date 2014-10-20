@@ -105,19 +105,6 @@ fe.wig = function(gulp,opt){
   });
 };
 
-// test server(node)
-fe.server = function(gulp,opt){
-  var connect = require('gulp-connect');
-  var def = {
-    root:'public',
-    port:3000
-  };
-  opt = _.merge(def,opt);
-  gulp.task('server', function(){
-    connect.server(opt);
-  });
-};
-
 // open URL with browser
 fe.open = function(gulp,opt){
   var open = require('open');
@@ -126,6 +113,19 @@ fe.open = function(gulp,opt){
     open(url);
   });
 }
+
+// test server(node)
+fe.server_node = function(gulp,opt){
+  var connect = require('gulp-connect');
+  var def = {
+    root:'public',
+    port:3000
+  };
+  opt = _.merge(def,opt);
+  gulp.task('server_node', function(){
+    connect.server(opt);
+  });
+};
 
 // test server(PHP)
 fe.server_php = function(gulp, opt){
@@ -141,35 +141,38 @@ fe.server_php = function(gulp, opt){
 
 // test server(Python)
 fe.server_py = function(gulp, opt){
+  var shell = require('gulp-shell');
   var def = {
     root: rootPath + '/public',
     port: 3000
   };
   opt = _.merge(def,opt);
-  gulp.task('server', shell.task([
+  gulp.task('server_py', shell.task([
     'pushd ' + opt.root + '; python -m SimpleHTTPServer ' + opt.port + '; popd'
   ]));
 };
 
 // test server(GAE)
 fe.server_gae = function(gulp, opt){
+  var shell = require('gulp-shell');
   var def = {
     root: rootPath + '/public',
     port: 3000
   };
   opt = _.merge(def,opt);
-  gulp.task('server', shell.task([
+  gulp.task('server_gae', shell.task([
     'dev_appserver.py --port=' + opt.port + ' ' + opt.root
   ]));
 };
 
 // deploy to GAE
 fe.deploy_gae = function(gulp, opt){
+  var shell = require('gulp-shell');
   var def = {
-    root: rootPath + '/public',
+    root: rootPath + '/public'
   };
   opt = _.merge(def,opt);
-  gulp.task('deploy',shell.task([
+  gulp.task('deploy_gae',shell.task([
     'appcfg.py --oauth2 update ' + opt.root + ' --no_cookies'
   ]));
 };

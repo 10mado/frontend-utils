@@ -34,7 +34,7 @@ js: minify js (not implemented)
 watch-js: watch js (not implemented)
 wig : build site with wig
 icon : compile icons with fontcustom 
-server : run Nodejs test server (defalut: localhost:3000)
+server_node : run Nodejs test server (defalut: localhost:3000)
 server_php : run PHP test server (defalut: localhost:3000)
 server_py : run Python test server (defalut: localhost:3000)
 server_gae : run GAE test server (defalut: localhost:3000)
