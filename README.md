@@ -25,6 +25,23 @@ gulpTasks.sass(gulp,{compass:true});
 // 'sass' and 'watch-sass' task automatically created with 10mado standard options.
 ```
 
+### tasks
+
+```
+sass: compile sass
+watch-sass: watch sass (not implemented)
+js: minify js (not implemented)
+watch-js: watch js (not implemented)
+wig : build site with wig
+icon : compile icons with fontcustom 
+server : run Nodejs test server (defalut: localhost:3000)
+server_php : run PHP test server (defalut: localhost:3000)
+server_py : run Python test server (defalut: localhost:3000)
+server_gae : run GAE test server (defalut: localhost:3000)
+deploy_gae : deploy to GAE
+open : open browser with specific url(defalut: localhost:3000)
+```
+
 ### recommended directory structure
 
 ```

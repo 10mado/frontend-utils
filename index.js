@@ -131,8 +131,8 @@ fe.open = function(gulp,opt){
 fe.server_php = function(gulp, opt){
   var shell = require('gulp-shell');
   var def = {
-    root:'public',
-    port:3000
+    root: rootPath + '/public',
+    port: 3000
   };
   opt = _.merge(def,opt);
   var cmd = 'php -S localhost:' + opt.port + ' -t ' + opt.root;
@@ -141,13 +141,42 @@ fe.server_php = function(gulp, opt){
 
 // test server(Python)
 fe.server_py = function(gulp, opt){
-  gulp.task('server_py', function(){
-  });
+  var def = {
+    root: rootPath + '/public',
+    port: 3000
+  };
+  opt = _.merge(def,opt);
+  gulp.task('server', shell.task([
+    'pushd ' + opt.root + '; python -m SimpleHTTPServer ' + opt.port + '; popd'
+  ]));
 };
 
 // test server(GAE)
-// deploy to GAE
+fe.server_gae = function(gulp, opt){
+  var def = {
+    root: rootPath + '/public',
+    port: 3000
+  };
+  opt = _.merge(def,opt);
+  gulp.task('server', shell.task([
+    'dev_appserver.py --port=' + opt.port + ' ' + opt.root
+  ]));
+};
 
+// deploy to GAE
+fe.deploy_gae = function(gulp, opt){
+  var def = {
+    root: rootPath + '/public',
+  };
+  opt = _.merge(def,opt);
+  gulp.task('deploy',shell.task([
+    'appcfg.py --oauth2 update ' + opt.root + ' --no_cookies'
+  ]));
+};
+
+
+
+// utility method to create all tasks
 fe.all = function(gulp, opt){
   if(opt === undefined){
     opt = {};
