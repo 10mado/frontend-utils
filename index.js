@@ -5,6 +5,7 @@ var frontendUtils = exports;
 frontendUtils.gulp = function(rootPath){
 
 var fe = {};
+var path = require('path');
 
 var _ = require('lodash');
 var used = [];
@@ -92,6 +93,8 @@ fe.wig = function(gulp,opt){
   var def = {
     rootDir: rootPath,
     outDir: 'public',
+    dataDir: 'data',
+    tmplDir: 'templates',
     verbose: true
   };
   opt = _.merge(def,opt);
@@ -102,6 +105,13 @@ fe.wig = function(gulp,opt){
     }catch(e){
       console.log(e);
     }
+  });
+  var src = [
+    path.join(opt.rootDir,opt.dataDir,'**','*'),
+    path.join(opt.rootDir,opt.tmplDir,'**','*')
+  ]
+  gulp.task('watch-wig',function(){
+    gulp.watch(src, ['wig']);
   });
 };
 
