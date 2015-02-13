@@ -25,7 +25,9 @@ fe.sass = function(gulp,opt){
       __dirname + '/node_modules/bootstrap-sass/assets/stylesheets',
       __dirname + '/bower_components/csswizardry-grids'
     ],
-    prefixer:['last 2 versions', '> 4%']
+    prefixer:{
+      browsers:['last 2 versions', '> 4%']
+    }
   }
   opt = _.merge(def,opt);
 
