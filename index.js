@@ -8,6 +8,7 @@ var fe = {};
 var path = require('path');
 
 var _ = require('lodash');
+var watch = require('gulp-watch');
 var used = [];
 
 // compile sass (+ autoprefixer) =======
@@ -43,8 +44,11 @@ fe.sass = function(gulp,opt){
       g = g.pipe(plumber.stop())
         .pipe(gulp.dest(opt.dest))
   });
+
   gulp.task('watch-sass',function(){
-    gulp.watch(opt.src, ['sass']);
+    watch(opt.src, function(){
+      gulp.start('sass');
+    });
   });
 };
 
@@ -104,7 +108,9 @@ fe.wig = function(gulp,opt){
     path.join(opt.rootDir,opt.tmplDir,'**','*')
   ]
   gulp.task('watch-wig',function(){
-    gulp.watch(src, ['wig']);
+    watch(src, function(){
+      gulp.start('wig');
+    });
   });
 };
 

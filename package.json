@@ -20,6 +20,7 @@
     "gulp-plumber": "^1.0.1",
     "gulp-sass": "^2.0.4",
     "gulp-shell": "^0.4.2",
+    "gulp-watch": "^4.3.3",
     "lodash": "^3.10.0",
     "open": "0.0.5",
     "sanitize.css": "^1.1.0",
