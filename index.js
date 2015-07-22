@@ -12,15 +12,13 @@ var used = [];
 
 // compile sass (+ autoprefixer) =======
 fe.sass = function(gulp,opt){
-  var sass = require('gulp-ruby-sass');
+  var sass = require('gulp-sass');
   var prefix = require('gulp-autoprefixer');
   var plumber = require('gulp-plumber');
   var def = {
     src:[rootPath+'/assets/sass/**/*.scss', rootPath+'/assets/sass/**/*.sass'],
-    dest:rootPath+'/public/css',
-    bundleExec: false,
+    dest:rootPath+'/public/assets/css',
     style: 'compact',
-    compass: false,
     loadPath:[
       __dirname + '/node_modules/bootstrap-sass/assets/stylesheets',
       __dirname + '/bower_components/csswizardry-grids'
@@ -29,17 +27,15 @@ fe.sass = function(gulp,opt){
       browsers:['last 2 versions', '> 4%']
     }
   }
-  opt = _.merge(def,opt);
+  opt = _.assign(def,opt);
 
   gulp.task('sass', function(){
     var g = gulp.src(opt.src)
       .pipe(plumber())
       .pipe(sass({
-        style: opt.style,
-        bundleExec: opt.bundleExec,
-        compass: opt.compass,
-        loadPath: opt.loadPath
-      }));
+        includePaths:opt.loadPath,
+        outputStyle:opt.style
+      }).on('error',sass.logError))
     if(opt.prefixer){
       g = g.pipe(prefix(opt.prefixer));
     }
@@ -48,12 +44,6 @@ fe.sass = function(gulp,opt){
   });
   gulp.task('watch-sass',function(){
     gulp.watch(opt.src, ['sass']);
-  });
-};
-
-// compass (+ autoprefixer) ========
-fe.compass = function(gulp,opt){
-  gulp.task('compass', function(){
   });
 };
 
@@ -99,7 +89,7 @@ fe.wig = function(gulp,opt){
     tmplDir: 'templates',
     verbose: true
   };
-  opt = _.merge(def,opt);
+  opt = _.assign(def,opt);
   var builder = new Wig(opt);
   gulp.task('wig', function(){
     try{
@@ -133,7 +123,7 @@ fe.server_node = function(gulp,opt){
     root:'public',
     port:3000
   };
-  opt = _.merge(def,opt);
+  opt = _.assign(def,opt);
   gulp.task('server_node', function(){
     connect.server(opt);
   });
@@ -146,7 +136,7 @@ fe.server_php = function(gulp, opt){
     root: rootPath + '/public',
     port: 3000
   };
-  opt = _.merge(def,opt);
+  opt = _.assign(def,opt);
   var cmd = 'php -S localhost:' + opt.port + ' -t ' + opt.root;
   gulp.task('server_php', shell.task([ cmd ]));
 };
@@ -158,7 +148,7 @@ fe.server_py = function(gulp, opt){
     root: rootPath + '/public',
     port: 3000
   };
-  opt = _.merge(def,opt);
+  opt = _.assign(def,opt);
   gulp.task('server_py', shell.task([
     'pushd ' + opt.root + '; python -m SimpleHTTPServer ' + opt.port + '; popd'
   ]));
@@ -171,7 +161,7 @@ fe.server_gae = function(gulp, opt){
     root: rootPath + '/public',
     port: 3000
   };
-  opt = _.merge(def,opt);
+  opt = _.assign(def,opt);
   gulp.task('server_gae', shell.task([
     'dev_appserver.py --port=' + opt.port + ' ' + opt.root
   ]));
@@ -183,7 +173,7 @@ fe.deploy_gae = function(gulp, opt){
   var def = {
     root: rootPath + '/public'
   };
-  opt = _.merge(def,opt);
+  opt = _.assign(def,opt);
   gulp.task('deploy_gae',shell.task([
     'appcfg.py --oauth2 update ' + opt.root + ' --no_cookies'
   ]));
